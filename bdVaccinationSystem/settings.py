@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-wk9!y5@bzvj_c4^9c*_jeuuljg$3ew5bwx0_ykhf!ejv6&$d06
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# cros 
+ALLOWED_HOSTS =  ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://example.com',
+    'https://example.com',
+]
+
 
 
 # Application definition
@@ -37,14 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+
     'Campaign',
     'doctor',
     # 'patient',
     'Vaccine',
     'user',
-    'rest_framework',
-    'rest_framework.authtoken',
-
+    
 ]
 
 MIDDLEWARE = [
@@ -55,7 +64,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'bdVaccinationSystem.urls'
 

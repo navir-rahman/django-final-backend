@@ -8,6 +8,7 @@ status = (
 )
 class Vaccine(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(default = None, blank=True, null=True, upload_to='vaccine/images/')
     description = models.TextField()
     dose_count = models.IntegerField(default= 3, null=True, blank=True)
     # initiated_by = models.ForeignKey(DoctorModel, on_delete=models.CASCADE)

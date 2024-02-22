@@ -8,15 +8,15 @@ user_roles = (
 )
 
 class UserModel(models.Model):
-    account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
+    account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_model')
     date_of_birth = models.DateField()
     nid = models.IntegerField()
     # past_medical_reports = models.TextField()
     user_role = models.CharField(max_length=20, choices=user_roles)
 
 
-    def __str__(self):
-        return self.account.username
+    # def __str__(self):
+    #     return self.account.username
 
 
 class PatientModel(models.Model):

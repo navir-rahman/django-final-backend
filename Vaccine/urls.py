@@ -3,7 +3,7 @@ from django.urls import path, include
 from . import views
 
 router = DefaultRouter()
-router.register('doctor', views.VaccineViewSet) 
+router.register('all_vaccine', views.VaccineViewSet) 
 urlpatterns = [
     path('', include(router.urls)),
     
