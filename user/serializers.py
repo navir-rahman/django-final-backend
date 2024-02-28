@@ -35,7 +35,7 @@ class Usersereal(serializers.ModelSerializer):
         
         username = self.validated_data['username']
         user = User.objects.get(username=username)
-        # Update User instance attributes
+
         user.first_name = self.validated_data['first_name']
         user.last_name = self.validated_data['last_name']
         user.email = self.validated_data['email']

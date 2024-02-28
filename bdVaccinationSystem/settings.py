@@ -29,11 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS =  ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://example.com',
-    'https://example.com',
+    
+    'http://127.0.0.1:5500',
+    'http://127.0.0.1:8000',
 ]
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -50,13 +51,14 @@ INSTALLED_APPS = [
 
     'Campaign',
     'doctor',
-    # 'patient',
+    'vaccine_history',
     'Vaccine',
     'user',
     
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 
@@ -150,3 +151,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'navirrahman@gmail.com'
 EMAIL_HOST_PASSWORD = 'yjhfjhsailpbuspp'
+
+
+MEDIA_URL = '/images/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

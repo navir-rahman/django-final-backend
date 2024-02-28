@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from Campaign.models import Campaign
+# from Campaign.models import Campaign
 
 user_roles = (
     ('doctor', 'Doctor'),
@@ -15,8 +15,8 @@ class UserModel(models.Model):
     user_role = models.CharField(max_length=20, choices=user_roles)
 
 
-    # def __str__(self):
-    #     return self.account.username
+    def __str__(self):
+        return self.account.username
 
 
 class PatientModel(models.Model):
@@ -29,9 +29,9 @@ class PatientModel(models.Model):
     
 
 class DoctorModel(models.Model):
-    doctor = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='doctor')
+    doctor = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='user')
     # vaccines = models.ManyToManyField(Vaccine,  related_name='vaccines', default= None, blank=True)
-    campaign = models.ManyToManyField(Campaign,  related_name='campaign')
+    # campaign = models.ManyToManyField(Campaign,  related_name='campaign')
     
 
     def __str__(self):

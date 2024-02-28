@@ -1,18 +1,31 @@
 from django.db import models
-# from user.models import DoctorModel
-# Create your models here.
-status = ( 
-    ('active', 'active'),
-    ('complete', 'complete'),
-    ('continuous', 'continuous'),
-)
-class Vaccine(models.Model):
-    name = models.CharField(max_length=100)
-    image = models.ImageField(default = None, blank=True, null=True, upload_to='vaccine/images/')
-    description = models.TextField()
-    dose_count = models.IntegerField(default= 3, null=True, blank=True)
-    # initiated_by = models.ForeignKey(DoctorModel, on_delete=models.CASCADE)
-    status = models.BooleanField(default=False, null=True)
+from user.models import DoctorModel, PatientModel
+from django.utils import timezone
 
-    def __str__(self) -> str:
+class Vaccine(models.Model):
+    status_choices = (
+        ('active', 'active'),
+        ('complete', 'complete'),
+        ('continuous', 'continuous'),
+    )
+    
+    name = models.CharField(max_length=100)
+    image = models.ImageField(default=None, blank=True, null=True, upload_to='vaccine/images/')
+    description = models.TextField()
+    dose_count = models.IntegerField(default=3, null=True, blank=True)
+    initiated_by = models.ForeignKey(DoctorModel, on_delete=models.CASCADE, default = False, null=True, blank=True)
+    status = models.BooleanField(default=False, null=True, blank=True)
+    campaign_name = models.CharField(max_length=20, default='null', blank=True, null = True)
+    initiated_date = models.DateTimeField(default=timezone.now().strftime('%Y-%m-%d'), null = True, blank=True )
+
+    def __str__(self):
         return self.name
+
+
+# class VaccineRecord(models.Model):
+#     vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE)
+#     patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
+#     date_taken = models.DateField()
+
+#     def __str__(self):
+#         return self.vaccine
