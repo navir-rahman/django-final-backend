@@ -11,3 +11,5 @@ class VaccineRecord(models.Model):
 
     def __str__(self):
         return self.vaccine.name
+    
+

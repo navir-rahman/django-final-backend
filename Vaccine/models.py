@@ -16,7 +16,11 @@ class Vaccine(models.Model):
     initiated_by = models.ForeignKey(DoctorModel, on_delete=models.CASCADE, default = False, null=True, blank=True)
     status = models.BooleanField(default=False, null=True, blank=True)
     campaign_name = models.CharField(max_length=20, default='null', blank=True, null = True)
-    initiated_date = models.DateTimeField(default=timezone.now().strftime('%Y-%m-%d'), null = True, blank=True )
+    
+    first_dose_date = models.DateField(null = True, blank=True )
+    second_dose_date = models.DateField(null = True, blank=True )
+
+    # initiated_date = models.DateTimeField(default=timezone.now().strftime('%Y-%m-%d'), null = True, blank=True )
 
     def __str__(self):
         return self.name

@@ -17,6 +17,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token as AuthToken
 from user.models import UserModel
 
+from rest_framework.generics import DestroyAPIView, UpdateAPIView
 # Create your views here.
 class VaccineViewSet(viewsets.ModelViewSet):
     queryset  = models.Vaccine.objects.all()
@@ -49,6 +50,26 @@ class AddVaccineViewSet(APIView):
     
 
 
+# views.py
+
+class VaccineDeleteAPIView(DestroyAPIView):
+    queryset = models.Vaccine.objects.all()
+    serializer_class = serializers.addVaccineSerializer
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({'status':'OK'})
+
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+
+
+
+
 
 # Create your views here.
 # class VaccineRecordViewSet(viewsets.ModelViewSet):
@@ -65,3 +86,26 @@ class AddVaccineViewSet(APIView):
 
 #         print(id)
 #         return Response({"success": "Vaccine record created successfully"}, status=status.HTTP_201_CREATED)
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+
+
+
+@api_view(['GET', 'PATCH'])
+def vaccine_detail(request, pk):
+    try:
+        vaccine_instance = models.Vaccine.objects.get(pk=pk)
+    except models.Vaccine.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = serializers.VaccineSerializer(vaccine_instance)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        serializer = serializers.VaccineSerializer(vaccine_instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
