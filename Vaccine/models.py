@@ -26,10 +26,10 @@ class Vaccine(models.Model):
         return self.name
 
 
-# class VaccineRecord(models.Model):
-#     vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE)
-#     patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE)
-#     date_taken = models.DateField()
+class VaccineRecord(models.Model):
+    vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE, related_name='vaccine_name')
+    patient = models.ForeignKey(PatientModel, on_delete=models.CASCADE, related_name='patient_name')
+    date_taken = models.DateField()
 
-#     def __str__(self):
-#         return self.vaccine
+    def __str__(self):
+        return self.vaccine

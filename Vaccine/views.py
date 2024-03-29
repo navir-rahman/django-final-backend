@@ -72,9 +72,9 @@ class VaccineDeleteAPIView(DestroyAPIView):
 
 
 # Create your views here.
-# class VaccineRecordViewSet(viewsets.ModelViewSet):
-#     queryset  = models.VaccineRecord.objects.all()
-#     serializer_class = serializers.VaccineRecordSerializer
+class VaccineRecordViewSet(viewsets.ModelViewSet):
+    queryset  = models.VaccineRecord.objects.all()
+    serializer_class = serializers.VaccineRecordSerializer
 
 
 
@@ -87,25 +87,3 @@ class VaccineDeleteAPIView(DestroyAPIView):
 #         print(id)
 #         return Response({"success": "Vaccine record created successfully"}, status=status.HTTP_201_CREATED)
 
-from rest_framework import status
-from rest_framework.decorators import api_view
-
-
-
-@api_view(['GET', 'PATCH'])
-def vaccine_detail(request, pk):
-    try:
-        vaccine_instance = models.Vaccine.objects.get(pk=pk)
-    except models.Vaccine.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = serializers.VaccineSerializer(vaccine_instance)
-        return Response(serializer.data)
-
-    elif request.method == 'PATCH':
-        serializer = serializers.VaccineSerializer(vaccine_instance, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

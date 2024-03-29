@@ -4,12 +4,11 @@ from . import views
 
 router = DefaultRouter()    
 router.register('all_vaccine', views.VaccineViewSet) 
-# router.register('history', views.VaccineRecordViewSet) 
+router.register('history', views.VaccineRecordViewSet) 
 urlpatterns = [
     path('', include(router.urls)),
     path('add', views.AddVaccineViewSet.as_view() ),
     # path('order/<int:id>/', views.order_vaccine.as_view() ),
     path('delete/<int:pk>/', views.VaccineDeleteAPIView.as_view(), name='vaccine-delete'),
-    path('vaccine/<int:pk>/', views.vaccine_detail, name='vaccine-detail'),
     
 ]
